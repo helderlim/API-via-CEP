@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // PhoneGap event handler
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+        }
+
+        $(document).on("click","#buscar",function(){
+
+          $.ajax({
+            type:"get",
+            url:"http://viacep.com.br/ws/"+$("#cep").val()+"/json/",
+            success: function(data){
+              var conteudo;
+              conteudo = "<p><strong>logradouro: </strong>"+data.logradouro+"</p>"
+
+               conteudo += "<p><strong>Bairro: </strong>"+data.bairro+"</p>"
+              
+                conteudo += "<p><strong>cidade: </strong>"+data.localidade+"</p>" 
+
+                 conteudo = "<p><strong>estado: </strong>"+data.uf+"</p>"
+
+            $("dados").html(conteudo);
+            },
+            error: function(){
+              alert("erro");
+            }
+          });
+
+        });
+    </script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Buscar CEP</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="co-12">
+        <div class="form-group">
+          <label for="">CEP:</label>
+          <input type="text" class="form-control" id="cep">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <button class="bnt btn-primary bnt block" id="buscar">Buscar</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div id="dados"></div>
+      </div>
+    </div>
+
+
+  </div>
+  
+
+</body>
+</html>
